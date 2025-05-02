@@ -1,0 +1,81 @@
+
+<script>    
+      
+    
+    
+  async function fetchFilePaths() {
+    const response = await fetch('/files/vulhub/paths.txt', { cache: 'reload' });
+
+    if (response.status === 304) {
+        console.log('Not modified, using cached response');
+        const cachedResponse = await caches.match('/files/vulhub/paths.txt');
+        if (cachedResponse) {
+            const text = await cachedResponse.text();
+            return text.split('\n').filter(path => path.trim() !== '');
+        }
+    }
+
+    if (response.ok) {
+        const text = await response.text();
+        return text.split('\n').filter(path => path.trim() !== '');
+    }
+
+    throw new Error('Fetch failed');
+}
+
+function processFilePaths(paths) {
+    return paths.map(path => {
+        let processedPath = path.replace(/^\.\//, '');
+        processedPath = processedPath.substring(0, processedPath.lastIndexOf('/'));
+        return processedPath;
+    });
+}
+
+function injectOptions(paths) {
+    const selectElement = document.getElementById("services");
+    paths.forEach(path => {
+        const option = document.createElement('option');
+        option.value = path;
+        option.textContent = path;
+        selectElement.appendChild(option);
+    });
+}
+
+async function initialize() {
+    try {
+        const filePaths = await fetchFilePaths();
+        const processedPaths = processFilePaths(filePaths);
+        injectOptions(processedPaths);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+  function runSelectedDocker(){
+      var target=encodeURIComponent(document.getElementById("targets").value);
+      var service=encodeURIComponent(document.getElementById("services").value);
+      var flag=encodeURIComponent(document.getElementById("flag").value);
+      console.log(`${target}, ${service}, ${flag}`);
+      fetch(`http://thinkfortwice/meow?command=create-docker-challenge&target_host=${target}&docker_name=${service}&flag=${flag}`);
+     }
+    
+    window.onload = initialize();
+</script>  
+<br><br>
+<label for="targets">Choose target VM:</label>
+  
+  <select id="targets">
+    <option value="ubuntu-desktop-target">Ubuntu Desktop Target</option>
+    <option value="ubuntu-server-target">Ubuntu Server Target</option>
+  </select>
+  <br><br>
+  <label for="services">Choose vulnerable service:</label>
+  <select id="services">
+
+	</select>
+<br><br>
+
+<label for="flag">Input Flag content here:</label>
+<input id="flag">
+<br><br>
+<button onclick="runSelectedDocker()">Run Selected Docker</button>

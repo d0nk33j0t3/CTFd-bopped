@@ -1,0 +1,10 @@
+- name: Linux-update-upgrade
+  hosts: linux
+  become: true
+
+  tasks:
+
+    - name: Ensure latest
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: full

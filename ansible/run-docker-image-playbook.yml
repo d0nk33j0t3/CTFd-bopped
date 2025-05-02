@@ -1,0 +1,52 @@
+- name: Run Docker image
+  hosts: "{{ target_host }}"
+  tasks:
+  - name: Start docker daemon
+    service:
+      name: docker
+      state: started
+      enabled: yes
+
+  - name: Create folder on host
+    ansible.builtin.file:
+      mode: '0755'
+      path: "/tmp/BoP/{{ docker_name }}"
+      state: directory
+
+  - name: Copy docker compose file to VM
+    ansible.builtin.copy:
+      src: "../../{{ docker_name }}/docker-compose.yml" 
+      dest: "/tmp/BoP/{{docker_name}}"
+
+  - name: Run docker compose file
+    community.docker.docker_compose_v2:
+      project_src: "/tmp/BoP/{{docker_name}}"
+      pull: missing
+      state: present
+    register: compose_output
+
+  - name: Get container ID
+    ansible.builtin.set_fact:
+      container_id: "{{ compose_output.containers[0].ID }}"
+
+  - name: Create flag file on host
+    ansible.builtin.file:
+      mode: 777
+      path: /home/falcon/flag.txt
+      state: touch
+
+  - name: Add flag to flag file
+    ansible.builtin.copy:
+      content: "{{ flag }}"
+      dest: /home/falcon/flag.txt
+
+  - name: DEBUG - print container ID
+    debug:
+      msg: "The container ID is {{ container_id }}"
+
+  - name: Copy flag to docker fs
+    community.docker.docker_container_copy_into:
+      docker_host: "tcp://192.168.122.116:2375"
+      container: "{{ container_id }}"
+      path: /home/falcon/flag.txt
+      container_path: /flag.txt

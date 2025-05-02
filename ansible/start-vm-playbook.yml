@@ -1,0 +1,8 @@
+- name: Start-VM
+  hosts: "{{ host }}"
+  tasks:
+    - name: Start-target
+      community.libvirt.virt:
+        command: start
+        name: "{{ target }}"
+        uri: qemu:///system

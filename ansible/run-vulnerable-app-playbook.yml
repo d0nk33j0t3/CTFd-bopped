@@ -1,0 +1,11 @@
+- name: Run vulnerable app
+  hosts: "{{ target_host }}"
+  tasks:
+    - name: Pull-vulnerable-app
+      ansible.windows.win_get_url:
+        dest: "%userprofile%\\Downloads\\vuln.exe"
+        url: "{{ file_url }}"
+
+    - name: Execute-vulnerable-app
+      ansible.windows.win_command:
+        cmd: "%userprofile%\\Downloads\\vuln.exe"

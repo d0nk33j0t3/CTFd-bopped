@@ -7,6 +7,7 @@ from distutils.version import StrictVersion
 
 import jinja2
 from flask import Flask, Request
+from flask_cors import CORS
 from flask_babel import Babel
 from flask_migrate import upgrade
 from jinja2 import FileSystemLoader
@@ -174,6 +175,7 @@ def run_upgrade():
 
 def create_app(config="CTFd.config.Config"):
     app = CTFdFlask(__name__)
+    CORS(app, resources={r"/*": {"origins": "*"}})
     with app.app_context():
         app.config.from_object(config)
 

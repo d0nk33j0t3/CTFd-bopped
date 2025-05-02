@@ -1,0 +1,9 @@
+- name: Create-flag
+  hosts: "{{ target_host }}"
+  tasks:
+
+  - name: Create-flag-file
+    ansible.builtin.file:
+      path: "{{ path_including_filename }}"
+      state: touch
+      content: "{{ flag_file_content }}"

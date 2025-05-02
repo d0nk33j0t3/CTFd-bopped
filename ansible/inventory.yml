@@ -1,0 +1,43 @@
+soc:
+  hosts:
+    win-11-soc:
+      ansible_host: 192.168.122.248
+      ansible_port: 22
+      ansible_user: falcon
+      ansible_password: falcon
+      ansible_ssh_private_key_file: ansible/keys/id_rsa
+
+targets:
+  hosts:
+    ubuntu-server-target:
+      ansible_host: 192.168.122.171
+      ansible_port: 22
+      ansible_user: falcon
+      ansible_password: falcon
+      ansible_ssh_private_key_file: ansible/keys/id_rsa
+
+    ubuntu-desktop-target:
+      ansible_host: 192.168.122.116
+      ansible_port: 22
+      ansible_user: falcon
+      #ansible_password: falcon
+      ansible_ssh_private_key_file: ansible/keys/id_rsa
+
+    windows-desktop-target:
+      ansible_host: 192.168.122.41
+      ansible_port: 22
+      ansible_user: falcon
+      ansible_password: falcon
+      ansible_ssh_private_key_file: ansible/keys/id_rsa
+
+    windows-server-target:
+      ansible_host: 192.168.122.145
+      ansible_port: 22
+      ansible_user: Administrator
+      ansible_password: falcon
+      ansible_ssh_private_key_file: ansible/keys/id_rsa
+    test:
+      ansible_host: 1.1.1.1
+      ansible_port: 22
+      ansible_user: test
+      ansible_ssh_private_key_file: ansible/keys/id_rsa

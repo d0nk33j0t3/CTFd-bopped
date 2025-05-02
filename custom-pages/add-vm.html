@@ -1,0 +1,24 @@
+<script>
+  
+  function addVM(){
+    var hostname = document.getElementById("hostname").value;
+    var address = document.getElementById("address").value;
+    var port = document.getElementById("port").value;
+    var user = document.getElementById("user").value;
+    fetch(`http://thinkfortwice/meow?command=add-volunteer-vm&hostname=${hostname}&address=${address}&port=${port}&user=${user}`);
+  }
+</script>
+<br><br>
+<label for="hostname">Name your VM (no spaces please):</label>
+<input id="hostname">
+<br><br>
+<label for="address">VM public IP address:</label>
+<input id="address">
+<br><br>
+<label for="port">SSH listening port:</label>
+<input id="port">
+<br><br>
+<label for="user">Username:</label>
+<input id="user">
+<br><br>
+<button onclick="addVM()">Add VM</button>

@@ -1,0 +1,9 @@
+- name: Stop-VM
+  hosts: "{{ host }}"
+
+  tasks:
+    - name: Stop-target
+      community.libvirt.virt:
+        command: shutdown
+        name: "{{ target }}"
+        uri: qemu:///system

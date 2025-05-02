@@ -1,0 +1,67 @@
+<script>
+ function middlewareInTheMiddle(command, target, host){
+    fetch(`http://thinkfortwice/meow?command=${command}&target=${target}&host=${host}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers:{
+    'Access-Control-Allow-Origin' : '*',
+    'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE'
+    }
+    })
+          }
+</script>
+
+<div class="row">
+        <h3>Ubuntu Desktop Target</h3>
+        <button onclick="middlewareInTheMiddle(this.id, 'ubuntu22.10-2', 'localhost')" id="start-vm">Start VM</button>
+        <button onclick="middlewareInTheMiddle(this.id, 'ubuntu22.10-2', 'localhost')" id="stop-vm">Stop VM</button>
+    </div>
+    <div class="row">
+        <h3>Ubuntu Server Target</h3>
+        <button onclick="middlewareInTheMiddle(this.id, 'ubuntu22.10', 'localhost')" id="start-vm">Start VM</button>
+        <button onclick="middlewareInTheMiddle(this.id, 'ubuntu22.10', 'localhost')" id="stop-vm">Stop VM</button>
+    </div>
+    <div class="row">
+        <h3>Windows Desktop Target</h3>
+        <button  onclick="middlewareInTheMiddle(this.id, 'win11-target', 'localhost')" id="start-vm">Start VM</button>
+        <button onclick="middlewareInTheMiddle(this.id, 'win11-target', 'localhost')" id="stop-vm">Stop VM</button>
+    </div>
+    <div class="row">
+        <h3>Windows Server Target</h3>
+        <button onclick="middlewareInTheMiddle(this.id, 'winserver-target', 'localhost')" id="start-vm">Start VM</button>
+        <button onclick="middlewareInTheMiddle(this.id, 'winserver-target', 'localhost')" id="stop-vm">Stop VM</button>
+   </div>
+	<div class="row">
+      <h3>Windows Desktop SOC</h3>
+      <button onclick="middlewareInTheMiddle(this.id, 'win11-soc', 'localhost')" id="start-vm">Start VM</button>
+      <button onclick="middlewareInTheMiddle(this.id, 'win11-soc', 'localhost')" id="stop-vm">Stop VM</button>
+     </div>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+h3 {
+    margin: 0;
+}
+
+button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+</style>
+
