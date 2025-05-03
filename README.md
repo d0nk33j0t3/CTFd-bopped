@@ -1,3 +1,29 @@
+# Bird of Prey readme
+
+## Requirements
+
+Ansible - available on Windows and *nix systems
+Python3 - available on Windows and *nix systems
+Node.js - available on Windows, *nix, and MacOS systems
+
+clone ![Vulhub](https://github.com/vulhub/vulhub) to the same parent directory as CTFd-bopped
+
+## Deployment
+
+The same installation steps as the ones for CTFd (see below) apply
+Runnning the installation within a Python virtual environment (venv) is recommended
+
+Once the CTFd instance is running, add the HTML files found in custom-pages as custom webpages from the admin panel of your CTFd instance. This will enable communication with the node.js listener and Ansible playbooks provided
+
+Run the node.js listener with 
+
+```$ node TheSecurityFlaw.js```
+
+Modify ansible/inventory.yml to include the virtual machines you want to use.
+Create SSH keys, placing the private one in ansible/keys, and add the public one to the authorized_keys file within the virtual machines you want to use, allowing Ansible access.
+
+# CTFd readme below 
+
 # ![](https://github.com/CTFd/CTFd/blob/master/CTFd/themes/core/static/img/logo.png?raw=true)
 
 ![CTFd MySQL CI](https://github.com/CTFd/CTFd/workflows/CTFd%20MySQL%20CI/badge.svg?branch=master)
